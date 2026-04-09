@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Forecast</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-wrapper">
+        <div class="card">
+            <div class="search-section">
+                <h1 class="app-title"><i class="fas fa-cloud-sun"></i> WeatherNow</h1>
+                <div class="search-bar">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="cityInput" placeholder="Search for a city..." />
+                    <button onclick="getWeather()" id="searchBtn">Search</button>
+                </div>
+            </div>
+
+            <div class="error-msg" id="errorMsg">
+                <i class="fas fa-exclamation-circle"></i>
+                <span id="errorText">City not found. Please try again.</span>
+            </div>
+
+            <div class="weather-container" id="weatherContainer">
+                <div class="location-date">
+                    <h2 id="cityName">--</h2>
+                    <p id="dateTime">--</p>
+                </div>
+
+                <div class="main-weather">
+                    <div class="weather-icon-wrap">
+                        <img id="weatherIcon" src="" alt="Weather Icon" />
+                        <p id="weatherDesc">--</p>
+                    </div>
+                    <div class="temperature">
+                        <h1 id="temp">--°C</h1>
+                        <p id="feelsLike">Feels like --°C</p>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <i class="fas fa-temperature-high"></i>
+                        <div>
+                            <p class="stat-label">Min / Max</p>
+                            <p class="stat-value" id="minMax">-- / --</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-tint"></i>
+                        <div>
+                            <p class="stat-label">Humidity</p>
+                            <p class="stat-value" id="humidity">--%</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-wind"></i>
+                        <div>
+                            <p class="stat-label">Wind Speed</p>
+                            <p class="stat-value" id="windSpeed">-- km/h</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-eye"></i>
+                        <div>
+                            <p class="stat-label">Visibility</p>
+                            <p class="stat-value" id="visibility">-- km</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-compress-arrows-alt"></i>
+                        <div>
+                            <p class="stat-label">Pressure</p>
+                            <p class="stat-value" id="pressure">-- hPa</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-sun"></i>
+                        <div>
+                            <p class="stat-label">Sunrise / Sunset</p>
+                            <p class="stat-value" id="sunriseSunset">-- / --</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="forecast-section">
+                    <h3>5-Day Forecast</h3>
+                    <div class="forecast-grid" id="forecastGrid"></div>
+                </div>
+            </div>
+
+            <div class="welcome-msg" id="welcomeMsg">
+                <i class="fas fa-cloud-sun-rain welcome-icon"></i>
+                <p>Enter a city name to get the latest weather updates</p>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
