@@ -40,4 +40,4 @@ A beautiful and responsive weather forecast web application built using HTML, CS
 
 ## 👨‍💻 Developer
 
-Made with ❤️ by **Avin**
+Made by **Avinna**
