@@ -38,6 +38,6 @@ A beautiful and responsive weather forecast web application built using HTML, CS
 
 - [OpenWeatherMap API](https://openweathermap.org/api)
 
-##  Developer
+## 👨‍💻 Developer
 
-Made with  by **Avinna**
+Made with ❤️ by **Avin**
