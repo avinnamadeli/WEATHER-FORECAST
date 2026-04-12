@@ -5,147 +5,179 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WeatherNow</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="weather-default">
+<body class="state-default">
 
-    <canvas id="weatherCanvas"></canvas>
+    <canvas id="bgCanvas"></canvas>
+    <canvas id="fxCanvas"></canvas>
 
-    <div class="sun" id="sun">
-        <div class="sun-core"></div>
-        <div class="sun-rays"></div>
-        <div class="sun-glow"></div>
-    </div>
-
-    <div class="moon" id="moon">
-        <div class="moon-core"></div>
-        <div class="moon-glow"></div>
-        <div class="moon-craters">
-            <div class="crater c1"></div>
-            <div class="crater c2"></div>
-            <div class="crater c3"></div>
+    <div class="immersive" id="immersive">
+        <div class="god-rays" id="godRays">
+            <div class="ray"></div><div class="ray"></div><div class="ray"></div>
+            <div class="ray"></div><div class="ray"></div><div class="ray"></div>
+            <div class="ray"></div><div class="ray"></div>
+        </div>
+        <div class="sun-wrap" id="sunWrap">
+            <div class="sun-corona"></div>
+            <div class="sun-body"><div class="sun-core"></div></div>
+            <div class="lens-flare lf1"></div>
+            <div class="lens-flare lf2"></div>
+            <div class="lens-flare lf3"></div>
+        </div>
+        <div class="moon-wrap" id="moonWrap">
+            <div class="moon-glow"></div>
+            <div class="moon-body">
+                <div class="crater cr1"></div>
+                <div class="crater cr2"></div>
+                <div class="crater cr3"></div>
+            </div>
+        </div>
+        <div class="aurora-wrap" id="auroraWrap">
+            <div class="aurora-band ab1"></div>
+            <div class="aurora-band ab2"></div>
+            <div class="aurora-band ab3"></div>
         </div>
     </div>
 
-    <div class="clouds-container" id="cloudsContainer"></div>
-    <div class="lightning" id="lightning"></div>
-
-    <div class="app-container">
-        <div class="glass-card" id="mainCard">
-
-            <div class="header">
-                <div class="logo">
+    <div class="screen screen-search" id="screenSearch">
+        <div class="search-center">
+            <div class="brand">
+                <div class="brand-orb">
                     <i class="fas fa-cloud-sun"></i>
-                    <span>WeatherNow</span>
                 </div>
-                <div class="time-display" id="timeDisplay"></div>
+                <h1 class="brand-name">WeatherNow</h1>
+                <p class="brand-sub">Discover your world's weather</p>
             </div>
-
-            <div class="search-wrapper">
-                <div class="search-box">
-                    <i class="fas fa-search search-ic"></i>
-                    <input type="text" id="cityInput" placeholder="Search any city..." />
-                    <button type="button" title="Search for weather" onclick="getWeather()" id="searchBtn">
-                        <i class="fas fa-arrow-right"></i>
-                    </button>
-                </div>
+            <div class="search-field">
+                <i class="fas fa-map-marker-alt field-icon"></i>
+                <input type="text" id="cityInput" placeholder="City name..." autocomplete="off" />
+                <button type="button" class="field-btn" onclick="getWeather()" title="Search">
+                    <i class="fas fa-arrow-right"></i>
+                </button>
             </div>
-
-            <div class="error-box" id="errorMsg">
-                <i class="fas fa-exclamation-triangle"></i>
+            <div class="error-pill" id="errorPill">
+                <i class="fas fa-exclamation-circle"></i>
                 <span id="errorText">City not found!</span>
             </div>
-
-            <div class="welcome-screen" id="welcomeScreen">
-                <div class="welcome-icon">
-                    <i class="fas fa-cloud-sun-rain"></i>
-                </div>
-                <h2>Discover the Weather</h2>
-                <p>Search for any city to get real-time weather with beautiful animations</p>
-            </div>
-
-            <div class="weather-display" id="weatherDisplay">
-
-                <div class="city-section">
-                    <h1 class="city-name" id="cityName">--</h1>
-                    <p class="date-text" id="dateText">--</p>
-                </div>
-
-                <div class="main-weather-block">
-                    <div class="weather-visual">
-                        <img id="weatherIcon" src="" alt="" />
-                        <p class="weather-condition" id="weatherCondition">--</p>
-                    </div>
-                    <div class="temp-block">
-                        <div class="main-temp" id="mainTemp">--°</div>
-                        <div class="feels-like" id="feelsLike">Feels like --°C</div>
-                        <div class="temp-range" id="tempRange">↓--° ↑--°</div>
-                    </div>
-                </div>
-
-                <div class="stats-row">
-                    <div class="stat-item">
-                        <div class="stat-icon"><i class="fas fa-tint"></i></div>
-                        <div class="stat-info">
-                            <span class="stat-val" id="humidity">--%</span>
-                            <span class="stat-name">Humidity</span>
-                        </div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-icon"><i class="fas fa-wind"></i></div>
-                        <div class="stat-info">
-                            <span class="stat-val" id="windSpeed">-- km/h</span>
-                            <span class="stat-name">Wind</span>
-                        </div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-icon"><i class="fas fa-eye"></i></div>
-                        <div class="stat-info">
-                            <span class="stat-val" id="visibility">-- km</span>
-                            <span class="stat-name">Visibility</span>
-                        </div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-icon"><i class="fas fa-compress-arrows-alt"></i></div>
-                        <div class="stat-info">
-                            <span class="stat-val" id="pressure">-- hPa</span>
-                            <span class="stat-name">Pressure</span>
-                        </div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-icon"><i class="fas fa-sun"></i></div>
-                        <div class="stat-info">
-                            <span class="stat-val" id="sunrise">--</span>
-                            <span class="stat-name">Sunrise</span>
-                        </div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-icon"><i class="fas fa-moon"></i></div>
-                        <div class="stat-info">
-                            <span class="stat-val" id="sunset">--</span>
-                            <span class="stat-name">Sunset</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="forecast-section">
-                    <h3 class="section-title">5-Day Forecast</h3>
-                    <div class="forecast-row" id="forecastRow"></div>
-                </div>
-
-                <div class="history-section">
-                    <h3 class="section-title">
-                        <i class="fas fa-history"></i> Recent
-                        <button class="clear-hist-btn" onclick="clearHistory()">Clear All</button>
-                    </h3>
-                    <div class="history-tags" id="historyTags"></div>
-                </div>
-
-            </div>
         </div>
     </div>
 
+    <div class="screen screen-dash" id="screenDash">
+
+        <nav class="dash-nav">
+            <button type="button" class="nav-back" onclick="goBack()" title="Go back">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <div class="nav-search">
+                <input type="text" id="navInput" placeholder="Search another city..." />
+                <button type="button" onclick="getWeatherNav()" title="Search">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+            <div class="nav-time" id="navTime"></div>
+        </nav>
+
+        <div class="dash-hero">
+            <div class="hero-info">
+                <p class="hero-location" id="heroLocation">--</p>
+                <h1 class="hero-temp" id="heroTemp">--°</h1>
+                <p class="hero-cond" id="heroCond">--</p>
+                <div class="hero-sub">
+                    <span id="heroFeels">Feels like --°</span>
+                    <span class="dot">·</span>
+                    <span id="heroRange">H:--° L:--°</span>
+                </div>
+            </div>
+            <div class="hero-icon-wrap">
+                <img id="heroIcon" src="" alt="" />
+            </div>
+        </div>
+
+        <div class="tiles">
+            <div class="tile">
+                <i class="fas fa-tint tile-ic"></i>
+                <span class="tile-lbl">Humidity</span>
+                <span class="tile-val" id="tileHumidity">--%</span>
+                <div class="tile-progress">
+                    <div id="humProgress" class="tile-fill"></div>
+                </div>
+            </div>
+            <div class="tile">
+                <i class="fas fa-wind tile-ic"></i>
+                <span class="tile-lbl">Wind Speed</span>
+                <span class="tile-val" id="tileWind">-- km/h</span>
+            </div>
+            <div class="tile">
+                <i class="fas fa-eye tile-ic"></i>
+                <span class="tile-lbl">Visibility</span>
+                <span class="tile-val" id="tileVis">-- km</span>
+            </div>
+            <div class="tile">
+                <i class="fas fa-compress-arrows-alt tile-ic"></i>
+                <span class="tile-lbl">Pressure</span>
+                <span class="tile-val" id="tilePressure">-- hPa</span>
+            </div>
+            <div class="tile">
+                <i class="fas fa-sun tile-ic"></i>
+                <span class="tile-lbl">Sunrise</span>
+                <span class="tile-val" id="tileSunrise">--</span>
+            </div>
+            <div class="tile">
+                <i class="fas fa-moon tile-ic"></i>
+                <span class="tile-lbl">Sunset</span>
+                <span class="tile-val" id="tileSunset">--</span>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-label">5-DAY FORECAST</div>
+            <div class="forecast-row" id="forecastRow"></div>
+        </div>
+
+        <div class="section">
+            <div class="section-label">
+                RECENT SEARCHES
+                <button class="clear-all" onclick="clearHistory()">Clear</button>
+            </div>
+            <div class="pill-row" id="pillRow"></div>
+        </div>
+
+    </div>
+
+    <!-- AI Assistant -->
+<div class="ai-btn" id="aiBtn" onclick="toggleAI()">
+    <i class="fas fa-robot"></i>
+</div>
+
+<div class="ai-panel" id="aiPanel">
+    <div class="ai-header">
+        <div class="ai-title">
+            <i class="fas fa-robot"></i>
+            <span>Carla</span>
+        </div>
+        <button type="button" class="ai-close" onclick="toggleAI()" title="Close AI Assistant">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    <div class="ai-messages" id="aiMessages">
+        <div class="ai-message bot-message">
+            <i class="fas fa-robot bot-icon"></i>
+            <div class="message-bubble">
+                Hey! 👋 I'm carla, your personal AI. Ask me anything about the weather!!
+            </div>
+        </div>
+    </div>
+    <div class="ai-input-row">
+        <input type="text" id="aiInput" 
+            placeholder="Ask me about the weather..." 
+            onkeypress="handleAIKey(event)" />
+        <button type="button" onclick="sendAIMessage()" class="ai-send" title="Send message">
+            <i class="fas fa-paper-plane"></i>
+        </button>
+    </div>
+</div>
     <script src="script.js"></script>
 </body>
 </html>
